@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.admin.html.twig' %}
+		<div class="col-md-9">
+			<h2><i class="fa fa-building"></i>  Les départements</h2>
+			<hr>
+			<div class="row">
+				<div class="col-md-5">
+					<form action="{{path('admin_department')}}" method="post" class="form">
+						<fieldset class="form-group">
+							<label for="name">Nom</label>
+							<input type="text" name="name" id="name" class="form-control" placeholder="Nom de département" required>
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="slug">Slug</label>
+							<input type="text" name="slug" id="slug" class="form-control" placeholder="Nom court ex: INFO" required>
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="chef">Chef</label>
+								<select name="chef" id="chef" class="c-select">
+								{% for teacher in teachers %}
+									<option value="{{teacher.id}}">{{teacher.user.name}} {{teacher.user.surname}}</option>
+
+								{% endfor %}
+								</select>
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="description">Description</label>
+							<textarea class="form-control" name="description" id="description" placeholder="Description"></textarea> 
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="email">Email</label>
+							<input type="email" class="form-control" name="email" id="email" placeholder="Exemple@site.com">
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="tel">TEL</label>
+							<input type="tel" class="form-control" name="tel" id="tel" placeholder="(+216) xx xxx xxx">
+						</fieldset>
+						<fieldset>
+							<button type="submit" class="btn btn-success pull-right"><i class="fa fa-plus-circle"></i>  Ajouter</button>
+						</fieldset>
+					</form>
+				</div>
+
+				<div class="col-md-7">
+					<table class="table">
+					  <thead class="thead-inverse">
+					    <tr>
+					      <th>#</th>
+					      <th>Département</th>
+					      <th>Chef</th>
+					      <th>Actions</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					  {% for department in departments %}
+					    <tr>
+					      <th scope="row">{{department.id}}</th>
+					      <td><a href="#">{{department.name}}</a></td>
+  					      <td><a href="#" class="btn btn-sm btn-info"><i class="fa fa-user"></i> {{department.chef.user.name}} {{department.chef.user.surname}}</a></td>
+
+					      	<td>
+					      		<a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+					      		<a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+				      		</td>
+					    </tr>
+					  {% endfor %}
+					  </tbody>
+					</table>
+				</div>
+			</div>
+
+	</section><!-- /container -->
+
+
+    
+{% endblock %}

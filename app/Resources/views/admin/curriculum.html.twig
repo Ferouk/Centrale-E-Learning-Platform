@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+        {% include 'navs/sidebar.admin.html.twig' %}
+        <div class="col-md-9">
+
+            <ol class="breadcrumb">
+                {% if isSearch == false %}
+
+                <li class="breadcrumb-item active">Plan d'étude</li>
+                {% else %}
+                        <li class="breadcrumb-item"><a href="{{ path('admin_curriculum') }}">Plan d'étude</a></li>
+                        <li class="breadcrumb-item active">Résultats pour <strong>"{{ search }}"</strong></li>
+                {% endif %}
+            </ol>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <form action="{{ path('admin_curriculum') }}" method="post" class="form form-inline">
+                            <fieldset class="form-group">
+                                <input type="text" class="form-control" name="search" placeholder="Rechercher...">
+                                <button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>#</th>
+                                <th>Classe</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% if noResult == true %}
+                        <tr>
+
+                            <td colspan="5">
+                                <h1 class="text-muted text-center">Pas de résultat</h1>
+                            </td>
+                        </tr>
+                        {% else %}
+                            {% for classe in pagination %}
+                                <tr>
+                                    <td>{{ classe.id }}</td>
+                                    <td><a href="#">{{ classe.slug }}</a></td>
+                                    <td><a href="{{ path('admin_curriculum_class', {'id' : classe.id}) }}" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </section><!-- /container -->
+
+
+
+{% endblock %}

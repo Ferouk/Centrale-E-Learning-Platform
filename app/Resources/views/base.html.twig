@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<div class="se-pre-con"></div>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{{ info.slug }} - {% block title %}Bienvenue!{% endblock %}</title>
+    <meta name="description" content="{{ info.description }}">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Page preloader -->
+    <script>
+        $(window).load(function() {
+            $(".se-pre-con").fadeOut("slow");
+        });
+    </script>
+    <!-- StyleSheets -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <style> {{ info.css }}</style>
+    {% block stylesheets %}{% endblock %}
+
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}"/>
+    <link rel="icon" type="image/ico" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+{% block body %}{% endblock %}
+
+<div class="clearfix"></div>
+<footer>
+    <div class="container">
+        <div class="row">
+            <nav class="nav-footer">
+                <ul class="nav nav-pills">
+                    {% if info.facebook != null %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.facebook.com/{{ info.facebook }}" target="_blank"><i
+                                        class="fa fa-facebook-official" aria-hidden="true"></i> Facebook</a>
+                        </li>
+                    {% endif %}
+                    {% if info.twitter != null %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://twitter.com/{{ info.twitter }}" target="_blank"><i
+                                        class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-check-circle-o" aria-hidden="true"></i>  Politique d'utilisation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-question-circle-o" aria-hidden="true"></i>  À propos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-envelope-o" aria-hidden="true"></i> Contacte</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="row main-footer">
+            <div class="col-md-2">
+                <a href="{{ path('homepage') }}" target="_blank">
+                    <img src="{{ asset('img/'~ info.logo  ) }}" class="img-responsive" alt="logo">
+                </a>
+            </div>
+            <div class="col-md-10">
+                <p class="copyrights text-muted">
+                    {% if info.copyright == null %}
+                        Tous droits réservés <i class="fa fa-copyright" aria-hidden="true"></i> <a href="{{info.link}}" target="_blank">Polytech Centrale</a> 2016 <br>
+                        <a href="#">{{info.slug}}</a> <i class="fa fa-code" aria-hidden="true"></i> {{info.name}} V <a href="#">Alpha 0.1</a>
+                    {% else %}
+                        {{info.copyright}}
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </div>
+</footer><!-- /footer -->
+
+<!-- JavaScripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/locales/bootstrap-datepicker.fr.min.js"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+{#
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+#}
+
+<script src="{{ asset("js/fos_js_routes.js") }}"></script>
+
+<script>
+    {{info.js}}
+</script>
+{% block javascripts %}{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administration{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.admin.html.twig' %}
+      <div class="col-md-9">
+			<h2><i class="fa fa-feed"></i>  Les actualités</h2>
+			<hr>
+			<form action="{{path('admin_actuality')}}" class="form" method="post" enctype="multipart/form-data">
+				<fieldset class="form-group">
+					<label for="title">Titre</label>
+					<input type="text" class="form-control" name="title" id="title" placeholder="Titre de la publication">
+				</fieldset>
+				<fieldset class="form-group">
+					<label for="target">Cible</label>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="target" id="public" value="1" checked>
+					    Publique
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="target" id="internal" value="2">
+					    Interne
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="target" id="department" value="3">
+					    Département
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="target" id="classe" value="4">
+					    Classe
+					  </label>
+					</div>
+					<div class="radio">
+					  <label>
+					    <input type="radio" name="target" id="groups" value="5">
+					    Groupe
+					  </label>
+					</div>
+				</fieldset>
+				<fieldset class="form-group departments" style="display:none;">
+				<label for="department">Départements</label>
+					<select name="department" id="department" class="c-select">
+						{% for department in departments %}
+						    <option value="{{department.id}}">{{department.name}}</option>
+						{% endfor %}
+					</select>
+				</fieldset>
+				<fieldset class="form-group classes" style="display:none;">
+				<label for="classe">Classes</label>
+					<select name="classe" id="classe" class="c-select">
+						{% for classe in classes %}
+						    <option value="{{classe.id}}">{{classe.slug}}</option>
+						{% endfor %}
+					</select>
+				</fieldset>
+				<fieldset class="form-group groups" style="display:none;">
+				<label for="group">Groupes</label>
+					<select name="group" id="group" class="c-select">
+						{% for group in groups %}
+						    <option value="{{group.id}}">{{group.classe.slug}} {{group.num}}</option>
+						{% endfor %}
+					</select>
+				</fieldset>
+				<fieldset class="form-group">
+					<label for="type">Type</label>
+						<select name="type" id="type" class="c-select">
+							<option value="Annonce">Annonce</option>
+							<option value="Absence">Absence</option>
+							<option value="Evènement">Evènement</option>
+							<option value="Rattrappage">Rattrappage</option>
+						</select>
+				</fieldset>
+				<fieldset class="form-group">
+					<label for="vignette">Vignette</label>
+				    <small class="text-muted">Une image (JPG, PNG, GIF)</small>
+				    <div class="row preview-container">
+				    	<img alt="vignette" class="img-thumbnail preview" style="display:none;">
+			    	</div>
+					<label class="file">
+					  <input type="file" id="img-input" name="vignette" accept="image/gif, image/jpeg, image/png">
+					  <span class="file-custom"></span>
+					</label>
+				</fieldset>
+
+				<fieldset class="form-group">
+					<label for="content">Contenu</label>
+					<textarea class="form-control" name="content" id="content" placeholder="Contenu de la publication"></textarea> 
+				</fieldset>
+				<fieldset class="form-group">
+					<label for="attachement">Attachement</label>
+				    <small class="text-muted">Document (Word ou PDF)</small>
+				    <br>
+						<label class="file">
+						  <input type="file" id="file" name="attachment" accept="application/msword,application/pdf">
+						  <span class="file-custom"></span>
+					</label>
+				</fieldset>
+
+				<fieldset>
+					<button type="submit" class="btn btn-success pull-right"><i class="fa fa-plus-circle"></i>  Ajouter</button>
+				</fieldset>
+			</form>
+      </div>
+    </section><!-- /container -->
+
+
+
+    
+{% endblock %}

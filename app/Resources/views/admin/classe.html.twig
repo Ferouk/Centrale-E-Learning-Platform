@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administration{% endblock %}
+{% block body %}
+	{% include 'navs/admin.html.twig' %}
+	<section class="container">
+		{% include 'navs/sidebar.admin.html.twig' %}
+		<div class="col-md-9">
+			<h2><i class="fa fa-users"></i>  Les classes</h2>
+			<hr>
+			{% if app.request.attributes.get('_route') == 'admin_classe_delete'  %}
+				<form action="{{path('admin_classe_delete', {'id': classe.id})}}" method="post">
+					<div class="alert alert-warning" role="alert">
+						<h4 class="alert-heading"><i class="fa fa-trash" aria-hidden="true"></i> Supprimer {{classe.slug}}!</h4>
+						<p>Vous êtes sur le point de supprimer {{classe.slug}} et ces groupes. Veuillez confirmer votre choix ou reculer.</p>
+						<p> <br>
+							<a href="{{path('admin_classes')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Reculer</a>
+							<input type="hidden" name="confirm" value="1">
+							<button class="btn btn-danger btn-sm pull-right"><i class="fa fa-check" aria-hidden="true"></i> Confirmer</button>
+						</p>
+					</div>
+				</form>
+			{% endif %}
+			<div class="row">
+				<div class="col-md-5">
+					<form action="{{path('admin_classes')}}" method="post" class="form">
+						<fieldset class="form-group">
+							<label for="cycle">Cycle</label>
+							<select name="cycle" id="cycle" class="c-select">
+								<option value="ING">Ingénièrie</option>
+								<option value="MAST PRO">mastère professionnel</option>
+								<option value="MAST RECH">mastère de recherche</option>
+								<option value="LF">License fondamentale</option>
+								<option value="LA">License appliquée</option>
+								<option value="PREPA">Préparatoire</option>
+							</select>
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="department">Département</label>
+							<select name="department" id="department" class="c-select">
+								{% for department in departments %}
+									<option value="{{department.id}}">Département {{department.name}}</option>
+								{% endfor %}
+							</select>
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="level">Niveau</label>
+							<select name="level" id="level" class="c-select">
+								<option value="1">1er</option>
+								<option value="2">2ème</option>
+								<option value="3">3ème</option>
+							</select>
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="speciality">Spécialité</label>
+							<input type="text" class="form-control" name="speciality" id="speciality" placeholder="Spécialité d'étude (Optionel)">
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="slug">Slug</label>
+							<input type="text" class="form-control"  name="slug" id="slug" placeholder="Nom court ex: ING INFO SI 3">
+						</fieldset>
+						<div class="checkbox">
+							<label for="grouped">
+								<input type="checkbox" id="grouped" name="grouped" value="true"> <i class="fa fa-group"></i> Diviser en groupes
+							</label>
+						</div>
+						<fieldset class="form-group hided">
+							<label for="groups">Nombre des groupes</label>
+							<input type="text" class="form-control" name="groups" id="groups" placeholder="Nombre des groupes">
+						</fieldset>
+						<fieldset>
+							<button type="submit" class="btn btn-success pull-right"><i class="fa fa-plus-circle"></i>  Ajouter</button>
+						</fieldset>
+					</form>
+				</div>
+
+				<div class="col-md-7">
+					<table class="table">
+						<thead class="thead-inverse">
+						<tr>
+							<th>#</th>
+							<th>Slug</th>
+							<th>Département</th>
+							<th>Actions</th>
+						</tr>
+						</thead>
+						<tbody>
+						{% for classe in classes %}
+							<tr>
+								<th scope="row">{{classe.id}}</th>
+								<td><a href="#">{{classe.slug}}</a></td>
+								<td>
+									<a href="#" class="btn btn-info btn-sm"><i class="fa fa-building" aria-hidden="true"></i>  {{classe.department.name}}</a>
+								</td>
+								<td>
+									<a href="{{path('admin_classe_update', {'id': classe.id})}}" class="btn btn-warning btn-sm"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+									<a href="{{path('admin_classe_delete', {'id': classe.id})}}" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></a>
+								</td>
+							</tr>
+						{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section><!-- /container -->
+{% endblock %}

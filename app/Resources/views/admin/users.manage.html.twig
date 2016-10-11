@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administration{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+        {% include 'navs/sidebar.admin.html.twig' %}
+        <div class="col-md-9">
+            {% if isSearch == false %}
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">Utilisateurs</li>
+            </ol>
+            {% else %}
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ path('admin_users') }}">Utilisateurs</a></li>
+                    <li class="breadcrumb-item active">Résultats pour <strong>"{{ search }}"</strong></li>
+                </ol>
+            {% endif %}
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{{ path('admin_priviliges') }}" class="btn btn-primary btn-sm"><i class="fa fa-user-secret" aria-hidden="true"></i>
+                        Privilèges</a>
+                    <a data-toggle="modal" data-target="#addUser" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter</a>
+                    <div class="pull-right">
+
+                        <form action="{{ path("admin_users") }}" method="post" class="form form-inline">
+                            <fieldset class="form-group">
+                                <input type="text" placeholder="Rechercher" class="form-control" name="search"
+                                       id="search">
+                            </fieldset>
+                            <button class="btn btn-primary"><i class="fa fa-search" aria-hidden="true"></i></button>
+                            {% if isSearch == true %}
+                                <a href="{{ path('admin_users') }}" class="btn btn-info"><i class="fa fa-list" aria-hidden="true"></i></a>
+                            {% endif %}
+                        </form>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th> {{ knp_pagination_sortable(pagination, '#', 'a.id') }} </th>
+                            <th {% if pagination.isSorted('a.name') %} class="sorted"{% endif %} >{{ knp_pagination_sortable(pagination, 'Prènom', 'a.name') }}</th>
+                            <th {% if pagination.isSorted('a.surname') %} class="sorted"{% endif %} >{{ knp_pagination_sortable(pagination, 'Nom', 'a.surname') }}</th>
+                            <th {% if pagination.isSorted('a.type') %} class="sorted"{% endif %} > {{ knp_pagination_sortable(pagination, 'Type', 'a.type') }}</th>
+                            <th {% if pagination.isSorted('a.privilege.name') %} class="sorted"{% endif %} > {{ knp_pagination_sortable(pagination, 'Privilège', 'a.privilege.name') }}</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody id="usersList">
+                        {% if noResult == true %}
+                            <tr>
+
+                                <td colspan="5">
+                                    <h1 class="text-muted text-center">Pas de résultat</h1>
+                                </td>
+                            </tr>
+                        {% else %}
+                            {% for user in pagination %}
+                                <tr>
+                                    <td id="userId">{{ user.id }}</td>
+                                    <td id="userName">{{ user.name }}</td>
+                                    <td id="userSurname">{{ user.surname }}</td>
+                                    <td id="UserType">
+                                        <small>
+                                            {% if user.type == 1 %}
+                                                Parent
+                                            {% elseif user.type == 2 %}
+                                                Enseignant
+                                            {% elseif user.type == 3 %}
+                                                Personel
+                                            {% elseif user.type == 4 %}
+                                                Administrateur
+                                            {% else %}
+                                                Etudiant
+                                            {% endif %}
+                                        </small>
+                                    </td>
+                                    <td>
+                                        {% if user.privilege %}
+                                        <small>{{ user.privilege.name }}</small>
+                                        {% else %}
+                                        <small>Rien</small>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-sm btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                        <button data-toggle="modal" data-target="#deleteUser" id="btnDeleteUser" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        <a href="#" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                    <div class="navigation">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- /container -->
+    {% include "modals/user.add.html.twig" %}
+    {% include 'modals/user.remove.html.twig' %}
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/ajax.js') }}"></script>
+{% endblock %}

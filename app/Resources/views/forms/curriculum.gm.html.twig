@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="collapse col-md-6 col-md-offset-6" id="addGM">
+        <form class="form" id="formAddGM">
+            <div class="card card-block">
+                <h3 class="card-title">Ajout {% if classe.cycle == "ING" %}GM{% else %}UE{% endif %}</h3>
+                <p class="card-text">
+                <fieldset disabled>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="title" value="{% if classe.cycle == 'ING' %}GM{% else %}UE{% endif %}.{{ classe.level }}" name="title">
+                    </div>
+                </fieldset>
+                <fieldset class="form-group">
+                    <input type="hidden" name="classId" value="{{ classe.id }}">
+                    <input type="hidden" name="number" id="NumGM">
+                    <input type="text" placeholder="Coefficient {% if classe.cycle == "ING" %}GM{% else %}UE{% endif %}" class="form-control" id="coeff" name="coeff" >
+                </fieldset>
+                </p>
+                <fieldset class="form-group">
+                    <div class="loader col-md-2 pull-left" style="display:none;"><img class="img-responsive" src="{{ asset('img/loader.gif') }}" alt=""></div>
+                    <button class="btn btn-secondary btn-sm pull-right" id="btnCancelGM">Annuler</button>
+                    <button class="btn btn-success btn-sm pull-right" type="submit" id="btnNewGM"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter</button>
+                    <div class="clearfix"></div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+</div>

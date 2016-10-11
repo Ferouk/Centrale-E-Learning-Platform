@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% include 'navs/visitor.html.twig' %}
+
+        <header class="jumbotron  jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-3">Bienvenue sur {{info.slug}}!</h1>
+            <p class="lead">{{info.name}}.</p>
+            <hr class="m-y-2">
+            <p><i class="fa fa-graduation-cap"></i> {{info.message}}.</p>
+            <p class="lead">
+            <a class="btn btn-primary btn-lg" href="{{path('security_login')}}" role="button"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
+            </p>
+        </div>
+    </header><!-- /header -->
+
+    <section class="container">
+    {% for actuality in actualities %}
+        
+        <div class="col-md-3">
+            <div class="card">
+              <img class="card-img-top" src="{{ asset('uploads/thumbnails/'~ actuality.thumbnail) }}" alt="Card image cap">
+              <div class="card-block">
+                <h5 class="card-text">{{actuality.title}}</h5>
+                <p class="card-text">{{actuality.content}}</p>
+              </div>
+            </div>
+        </div>
+     {% endfor %}
+
+    </section><!-- /container -->
+    
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{course.name}}{% endblock %}
+{% block body %}
+    {% include 'navs/user.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.student.html.twig' %}
+      <div class="col-md-9">
+        <h2><i class="fa fa-book" aria-hidden="true"></i>  Ajout chapitre à <strong>{{course.name}}</strong></h2><small class="text-muted"> {{course.gmue.classe.slug}}</small>
+        <hr>
+		<form action="{{path('Teacher_chapter', {'id': course.id})}}" method="post" class="form">
+			<fieldset class="form-group">
+				<label for="title">Titre</label>
+				<input type="text" class="form-control" name="title" id="title" placeholder="Titre du chapitre">
+			</fieldset>
+			<fieldset class="form-group">
+				<label for="slug">Slug</label>
+				<input type="text" class="form-control" name="slug" id="slug" placeholder="Nom court (Optionel)">
+			</fieldset>
+			<fieldset class="form-group">
+				<label for="num">Numéro</label>
+				<input type="text" class="form-control" name="num" id="num" placeholder="Numéro du chapitre">
+			</fieldset>
+			<fieldset class="form-group">
+				<label for="description">Description</label>
+				<textarea class="form-control" name="description" id="description" placeholder="Description"></textarea>
+			</fieldset>
+			<fieldset class="form-group">
+				<a href="{{path('Teacher_course', {'id' : course.id})}}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Revenir</a>
+
+				<button class="btn btn-success pull-right"><i class="fa fa-plus"></i> Ajouter le chapitre</button>
+			</fieldset>
+		</form>
+      </div>
+    </section><!-- /container -->
+
+
+
+    
+{% endblock %}

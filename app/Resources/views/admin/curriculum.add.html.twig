@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+        {% include 'navs/sidebar.admin.html.twig' %}
+        <div class="col-md-9">
+
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path('admin_curriculum') }}">Plan d'étude</a></li>
+                <li class="breadcrumb-item active">{{ classe.slug }}</li>
+            </ol>
+            <div class="clearfix"></div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped text-center">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th style="vertical-align:middle;text-align: center;" rowspan="2">{% if classe.cycle == "ING" %}GM{% else %}UE{% endif %}</th>
+                            <th style="vertical-align:middle;text-align: center;" rowspan="2">{% if classe.cycle == "ING" %}Modules{% else %}ECUE{% endif %}</th>
+                            <th style="vertical-align:middle;text-align: center;" rowspan="2">SEM</th>
+                            <th style="vertical-align:middle;text-align: center;" rowspan="2">Type</th>
+                            <th style="vertical-align:middle;text-align: center;" rowspan="2">C</th>
+                            <th style="vertical-align:middle;text-align: center;" rowspan="2">TD</th>
+                            <th style="vertical-align:middle;text-align: center;" rowspan="2">TP</th>
+                            <th style="vertical-align:middle;text-align: center;" rowspan="2">TOT</th>
+                            <th colspan="2" style="text-align: center;">Coefficient</th>
+                            <th style="vertical-align:middle;text-align: center;" rowspan="2">Actions</th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center;">{% if classe.cycle == "ING" %}MD{% else %}ECUE{% endif %}</th>
+                            <th style="text-align: center;">{% if classe.cycle == "ING" %}GM{% else %}UE{% endif %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if Gms %}
+                            {% for gm in Gms  %}
+                            <tr id="GMRow">
+                                <th style="text-align: center; vertical-align:middle;" scope="row" {% if gm.modules|length > 0 %}rowspan="{{ gm.modules|length }}" {% endif %}>{% if classe.cycle == "ING" %}GM{% else %}UE{% endif %}.{{ classe.level }}.{{ gm.number }}
+                                    <input type="hidden" value="{{ gm.id }}"></th>
+                                {% if  gm.modules|length > 0 %}
+                                    {% for module in gm.modules %}
+                                        {% if loop.first %}
+                                            <td id="CellTitle">{{ module.title }}</td>
+                                            <td id="CellSemester">{{ module.semester }}</td>
+                                            <td id="CellType">{{ module.type }}</td>
+                                            <td id="CellC">{{ module.c }}</td>
+                                            <td id="CellTP">{{ module.tp }}</td>
+                                            <td id="CellTD">{{ module.td }}</td>
+                                            <td id="CellTOT">{{ module.c + module.tp + module.td }}</td>
+                                            <td id="CellMD">{{ module.coefficient }}</td>
+                                        {% endif %}
+
+                                    {% endfor %}
+                                {% else %}
+                                <td colspan="8" class="text-muted" id="noModule"><h5>Pas de modules</h5></td>
+                                {% endif %}
+                                <td id="GMCoeff" style="text-align: center; vertical-align:middle;" {% if gm.modules|length > 0 %}rowspan="{{ gm.modules|length }}" {% endif %}>{{ gm.coefficient }}</td>
+                                <td id="GMActions" style="text-align: center; vertical-align:middle;" {% if gm.modules|length > 0 %}rowspan="{{ gm.modules|length }}" {% endif %}>
+                                    <button id="BtnNewModule" class="btn btn-sm btn-secondary" data-toggle="modal" data-target="#addModule"><i class="fa fa-book" aria-hidden="true"></i></button>
+                                    <a href="#" class="btn btn-sm btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                    <button data-toggle="modal" data-target="#deleteGM" id="btnDeleteGM" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                                {% if  gm.modules|length > 1 %}
+                                    {% for module in gm.modules %}
+                                        {% if not loop.first %}
+                                            <tr>
+                                                <td id="CellTitle">{{ module.title }}</td>
+                                                <td id="CellSemester">{{ module.semester }}</td>
+                                                <td id="CellType">{{ module.type }}</td>
+                                                <td id="CellC">{{ module.c }}</td>
+                                                <td id="CellTP">{{ module.tp }}</td>
+                                                <td id="CellTD">{{ module.td }}</td>
+                                                <td id="CellTOT">{{ module.c + module.tp + module.td }}</td>
+                                                <td id="CellMD">{{ module.coefficient }}</td>
+                                            </tr>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+
+                        {% else %}
+                            <tr>
+                                <td colspan="11" class="text-muted" id="list"><h3>La liste est vide</h3></td>
+                            </tr>
+                        {% endif %}
+                        </tbody>
+                            <tfoot {% if not Gms %}style="display: none;"{% endif %}>
+                                <tr class="bg-success">
+                                    <th scope="row">Totale</th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td id="totalC">0</td>
+                                    <td id="totalTD">0</td>
+                                    <td id="totalTP">0</td>
+                                    <td id="totalTOT">0</td>
+                                    <td id="totalMD">0</td>
+                                    <td id="totalGM">0</td>
+                                    <td></td>
+                                </tr>
+                            </tfoot>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <a class="btn btn-info btn-sm" data-toggle="collapse" href="#addGM" aria-expanded="false" aria-controls="addGM" id="btnAddGM"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter {% if classe.cycle == "ING" %}GM{% else %}UE{% endif %}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    {% include "forms/curriculum.gm.html.twig" %}
+                </div>
+            </div>
+
+        </div>
+
+    </section><!-- /container -->
+
+    {% include "modals/module.add.html.twig" %}
+    {% include "modals/gm.remove.html.twig" %}
+
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/ajax.js') }}"></script>
+{% endblock %}

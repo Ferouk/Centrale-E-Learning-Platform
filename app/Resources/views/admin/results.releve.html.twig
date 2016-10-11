@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.admin.html.twig' %}
+      <div class="col-md-9">
+      	<h2><i class="fa fa-list"></i> Relevé de notes de {{student.user.name}} {{student.user.surname}} <a href="{{path('admin_group_results', {'id':student.groups.id})}}" class="btn btn-sm btn-primary pull-right"><i class="fa fa-arrow-left" aria-hidden="true"></i> Revenir</a></h2><hr>
+			<table class="table">
+				<thead class="thead-inverse">
+					<th>GM/UE</th>
+					<th>Coeff</th>
+					<th>Matières</th>
+					<th>Moyenne</th>
+					<th>Module à crédits</th>
+				</thead>
+				<tbody>
+					<input type="hidden" id="group_cycle" value="{{student.groups.classe.cycle}}">
+					{% for gmue in student.groups.classe.gmues %}
+					    <tr id="gm">
+					    	<td><h5>{{gmue.type}} {{gmue.number}}</h5></td>
+					    	<td id="gmCoeff">{{gmue.coefficient}}</td>
+					    	<td id="courses">
+					    	<table class="table table-sm">
+					    		{% for course in gmue.courses %}
+						    		<tr id="course">
+							    			<td><a href="{{path('admin_course_results', {'group': student.groups.id, 'course': course.id})}}" class="btn btn-sm btn-info"><i class="fa fa-list" aria-hidden="true"></i> {{course.name}}</a></td>
+							    			<td id="mCoeff">{{course.coefficient}}</td>
+							    			<td id="note">{% for result in results %}
+							    			    {% if course.id == result.course.id %}<span class="{{result.type}}">{{result.mark}}</span>{% endif %}
+							    			{% endfor %} <span class="moy"></span></td>
+						    		</tr>
+					    		{% endfor %}
+					    	</table>
+					    	</td>
+					    	<td id="GMMoy"></td>
+			    			<td id="credit"></td>
+
+					    </tr>
+					{% endfor %}
+					<tr class="table-active">
+						<td><strong>Résultat</strong></td>
+						<td id="decision"></td>
+						<td><strong class="pull-right">Moyenne</strong></td>
+						<td id="Moyenne"></td>
+						<td id="credits"></td>
+					</tr>
+				</tbody>
+			</table>
+ 		</div>
+    </section><!-- /container -->
+    
+{% endblock %}

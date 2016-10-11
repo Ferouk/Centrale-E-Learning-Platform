@@ -1,0 +1,33 @@
+<nav class="main">
+		<ul class="nav nav-pills nav-stacked">
+		  <li class="nav-item">
+		    <a class="nav-link {% if app.request.attributes.get('_route') == 'homepage' %}active{% endif %}" href="{{path('homepage')}}"><i class="fa fa-home" aria-hidden="true"></i>  Actualités</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link {% if app.request.attributes.get('_route') == 'profilepage' %}active{% endif %}" href="{{path('profilepage')}}"><i class="fa fa-user" aria-hidden="true"></i>  Profile</a>
+		  </li>
+		  {% if app.user.type == 0 %}
+			  <li class="nav-item">
+		    <a class="nav-link {% if app.request.attributes.get('_route') == 'StudentSubjectsPage' or app.request.attributes.get('_route') == 'StudentSubjectPage' %}active{% endif %}" href="{{path('StudentSubjectsPage')}}"><i class="fa fa-book" aria-hidden="true"></i>  Cours</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#"><i class="fa fa-building" aria-hidden="true"></i>  Classe</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#"><i class="fa fa-calendar" aria-hidden="true"></i>  Emploi</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#"><i class="fa fa-check-circle-o" aria-hidden="true"></i>  Résultats</a>
+		  </li>
+		  {% elseif app.user.type == 2 %}
+           <li class="nav-item">
+		    <a class="nav-link  {% if app.request.attributes.get('_route') == 'coursepage' or app.request.attributes.get('_route') == 'Teacher_course' or app.request.attributes.get('_route') == 'Teacher_chapter' or app.request.attributes.get('_route') == 'Teacher_lesson' or app.request.attributes.get('_route') == 'Teacher_attachment' %}active{% endif %}" href="{{path('coursepage')}}"><i class="fa fa-book" aria-hidden="true"></i>  Matières</a>
+		  </li>
+  		  <li class="nav-item">
+		    <a class="nav-link" href="#"><i class="fa fa-building" aria-hidden="true"></i>  Classes</a>
+		  </li>
+
+		  {% endif %}
+
+		</ul>
+	</nav>

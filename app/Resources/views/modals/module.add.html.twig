@@ -1,0 +1,60 @@
+<div class="modal fade" id="addModule" tabindex="-1" role="dialog" aria-labelledby="addModule" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><i class="fa fa-book" aria-hidden="true"></i> Ajouter un module</h4>
+            </div>
+            <form class="form">
+            <div class="modal-body">
+                    <fieldset class="form-group">
+                        <label for="">Module</label>
+                        <input type="hidden" class="form-control" id="gm" name="gm" value="">
+                        <input type="text" class="form-control" placeholder="Nom de module" id="module" name="module">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="">Semestre</label>
+                        <select class="form-control" id="semestre" name="semestre">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="">Type</label>
+                        <select class="form-control" id="type" name="type">
+                            <option value="MIX">Mixte</option>
+                            <option value="CC">Contrôle continue</option>
+                            <option value="Soutenance">Soutenance</option>
+                        </select>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="">C</label>
+                        <input type="text" class="form-control" placeholder="Cours" id="c" name="c">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="">TD</label>
+                        <input type="text" class="form-control" placeholder="Travaux dirigés" id="td" name="td">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="">TP</label>
+                        <input type="text" class="form-control" placeholder="Travaux pratiques" id="tp" name="tp">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="">Coefficient</label>
+                        <input type="text" class="form-control" placeholder="Coefficient" id="coeff" name="coeff">
+                    </fieldset>
+
+            </div>
+            <div class="modal-footer">
+                <div id="loaderModule" class="loader col-md-2 pull-left" style="display:none;"><img class="img-responsive" src="{{ asset('img/loader.gif') }}" alt=""></div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="BtnCancelAddNewModule">Annuler</button>
+                <button type="submit" class="btn btn-success" id="BtnAddNewModule"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter</button>
+            <div class="clearfix"></div>
+            </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.admin.html.twig' %}
+      <div class="col-md-9">
+			<h2><i class="fa fa-check-circle-o" aria-hidden="true"></i>  Les résultats <span class="text-muted">></span> {{group.classe.slug}} {{group.num}} <a href="{{path('admin_results')}}" class="btn btn-sm btn-primary pull-right"><i class="fa fa-arrow-left" aria-hidden="true"></i> Revenir</a></h2>
+			<hr>
+			{% for gmue in group.classe.GroupModules %}
+				{% for module in gmue.modules %}
+					<div class="col-md-3">
+						<div class="card text-center">
+						    <div class="card-header">{{module.title}}</div>
+
+						    <div class="card-block">
+    						    <p class="card-text">
+    						    <small><i class="fa fa-calendar-check-o" aria-hidden="true"></i> Semestre {{module.semester}}</small> <br>
+    						    <small><i class="fa fa-paperclip" aria-hidden="true"></i> <strong>Coeff</strong> {{module.coefficient}} / GM{{gmue.number}}({{gmue.coefficient}})</small>
+    						    </p>
+						    	<a href="{{path('admin_course_results', {'group': group.id, 'course': module.id})}}" class="btn btn-sm btn-info"><i class="fa fa-list" aria-hidden="true"></i> Remplir</a>
+						  </div>
+						</div>
+					</div>
+			    {% endfor %}				    
+			{% endfor %}
+ 		</div>
+ 		<div class="col-md-9">
+
+			<table class="table">
+				<thead class="thead-inverse">
+					<th>Etudiant</th>
+					<th></th>
+					<th>Relevés de note</th>
+				</thead>
+				<tbody>
+					{% for student in group.students %}
+					    <tr>
+					    	<td><i class="fa fa-graduation-cap" aria-hidden="true"></i> {{student.user.name}} {{student.user.surname}}</td>
+					    	<td></td>
+					    	<td><a href="{{path('admin_student_results', {'id': student.id})}}" class="btn btn-sm btn-info"><i class="fa fa-eye" aria-hidden="true"></i> Voir</a></td>
+					    </tr>
+					{% endfor %}
+				</tbody>
+			</table>
+ 		</div>
+    </section><!-- /container -->
+    
+{% endblock %}

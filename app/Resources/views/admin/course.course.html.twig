@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administration{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.admin.html.twig' %}
+      <div class="col-md-9">
+        <h2><a href="{{path('admin_courses')}}" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Revenir</a> Ajout matière à <strong>{{gmue.type}}{{gmue.number}}</strong> de {{gmue.classe.slug}}</h2>
+        <hr>
+
+        <div class="col-md-5">
+
+        <form action="{{path('admin_courses_add', {'gmue': gmue.id})}}" method="post" class="form" enctype="multipart/form-data">
+        	<fieldset class="form-group">
+        		<label for="name">Nom</label>
+        		<input type="text" name="name" id="name" class="form-control" placeholder="Nom de la matière">
+        	</fieldset>
+        	<fieldset class="form-group">
+        		<label for="slug">Slug</label>
+        		<input type="text" name="slug" id="slug" class="form-control" placeholder="Nom court ex: Algo">
+        	</fieldset>
+			<fieldset class="form-group">
+				<label for="image">Vignette <small>(Optionelle)</small></label>
+			    <small class="text-muted">Une image (JPG, PNG, GIF)</small>
+			    <br>
+		    		<img alt="" class="img-thumbnail preview" style="display:none;">
+				<label class="file">
+				  <input type="file" id="img-input" name="image" accept="image/gif, image/jpeg, image/png">
+				  <span class="file-custom"></span>
+				</label>
+			</fieldset>
+
+        	<fieldset class="form-group">
+        		<label for="semestre">Semestre</label>
+        		<select name="semestre" id="semestre" class="c-select">
+        			<option value="1">1</option>
+        			<option value="2">2</option>
+        		</select>
+        	</fieldset>
+        	<fieldset class="form-group">
+        		<label for="coefficient">Coefficient</label>
+        		<input type="text" name="coefficient" id="coefficient" class="form-control" placeholder="Coefficient">
+        	</fieldset>
+        	<fieldset class="form-group">
+        		<label for="teacher">Enseignant</label>
+        		<select name="teacher" id="teacher" class="c-select">
+        		{% for teacher in teachers %}
+        			<option value="{{teacher.id}}">{{teacher.user.name}} {{teacher.user.surname}}</option>
+        		{% endfor %}
+        		</select>
+        	</fieldset>
+            <hr>
+            <fieldset class="form-group">
+            <label>Plan d'étude</label><br>
+                <label for="tp">
+                    <input type="checkbox" name="tp" id="tp" value="true">
+                    TP
+                </label><br>
+                <label for="ds2">
+                    <input type="checkbox" name="ds2" id="ds2" value="true">
+                    DS2
+                </label><br>
+                <label for="an">
+                    <input type="checkbox" name="an" id="an" value="true">
+                    Autre note
+                </label>
+            </fieldset>
+			<fieldset class="form-group">
+				<button class="btn btn-success pull-right"><i class="fa fa-plus"></i> Ajouter</button>
+			</fieldset>
+
+        </form>
+        </div>
+
+        <div class="col-md-7">
+        	<table class="table">
+			  <thead class="thead-inverse">
+			    <tr>
+			      <th>#</th>
+			      <th>Nom</th>
+			      <th>Actions</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+			  {% for course in gmue.courses %}
+			    <tr>
+			      <th scope="row">{{course.id}}</th>
+			      <td><a href="#"class="btn btn-sm btn-info"><i class="fa fa-book"></i> {{course.name}}</a></td>
+			      	<td>
+			      		<a href="#" class="btn btn-warning btn-sm"><i class="fa fa-pencil"></i></a>
+			      		<a href="#" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a>
+		      		</td>
+			    </tr>
+			    {% endfor %}
+			  </tbody>
+			</table>
+        </div>
+      </div>
+    </section><!-- /container -->
+
+
+
+    
+{% endblock %}

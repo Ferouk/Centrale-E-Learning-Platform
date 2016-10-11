@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administration{% endblock %}
+{% block body %}
+	{% include 'navs/admin.html.twig' %}
+	<section class="container">
+		{% include 'navs/sidebar.admin.html.twig' %}
+		<div class="col-md-9">
+			<h1 class="display-1">Salut {{app.user.username}},</h1>
+			<hr>
+			<p class="text-info">
+				<i class="fa fa-flag-o"></i>  Ici vous trouvez des statistiques à propos de la platforme.
+			</p>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="card text-center">
+						<div class="card-block">
+							<h4 class="card-title">{{teachers | length }}</h4>
+							<p class="card-text">Enseignants {% if teachers == null %} <br><small>Commencez par ajouter <a href="{{path('admin_teacher')}}" class="btn btn-primary btn-sm">Des enseignants</a></small> {% endif %}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-center">
+						<div class="card-block">
+							<h4 class="card-title">{{departments | length }}</h4>
+							<p class="card-text">Départements {% if teachers != null and departments == null %} <br><small>Vous devez ajouter <a href="{{path('admin_department')}}" class="btn btn-primary btn-sm">Des départments</a></small> {% endif %}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-center">
+						<div class="card-block">
+							<h4 class="card-title">{{classes | length }}</h4>
+							<p class="card-text">Classes{% if teachers != null and departments != null and classes == null %} <br><small>Vous devez ajouter <a href="{{path('admin_classes')}}" class="btn btn-primary btn-sm">Des classes</a></small> {% endif %}</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-center">
+						<div class="card-block">
+							<h4 class="card-title">{{groups | length }}</h4>
+							<p class="card-text">Groupes</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3">
+					<div class="card text-center">
+						<div class="card-block">
+							<h4 class="card-title">{{students | length }}</h4>
+							<p class="card-text">Etudiants</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-center">
+						<div class="card-block">
+							<h4 class="card-title">0</h4>
+							<p class="card-text">Parents</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-center">
+						<div class="card-block">
+							<h4 class="card-title">0</h4>
+							<p class="card-text">Personels</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card text-center">
+						<div class="card-block">
+							<h4 class="card-title">{{courses | length }}</h4>
+							<p class="card-text">Matières</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</section><!-- /container -->
+{% endblock %}

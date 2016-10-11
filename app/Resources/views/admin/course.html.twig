@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.admin.html.twig' %}
+      <div class="col-md-9">
+<h2><i class="fa fa-book"></i>  Les matières</h2>
+			<hr>
+			<div class="row">
+					<table class="table">
+						<thead class="thead-inverse">
+							<tr>
+								<th>#</th>
+								<th>Groupe</th>
+								<th>GM/UE</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for classe in classes %}
+								<tr>
+								  <th scope="row">{{classe.id}}</th>
+								  <td><a href="#">{{classe.slug}}</a></td>
+								  <td>
+  									  {% for gmue in classe.gmues %}
+									      <a href="{{path('admin_courses_add',{'gmue': gmue.id}) }}" class="btn btn-primary btn-sm"><i class="fa fa-bookmark"></i>  {{gmue.type}}{{gmue.number}}</a>
+									  {% endfor %}
+								  </td>
+								  	<td>
+								  		<a href="#" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+								  		{% if classe.cycle == "ING" %}
+								  		<a href="{{path('admin_courses_gmue',{'classe': classe.id}) }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> GM</a>
+								  		{% else %}
+								  		<a href="{{path('admin_courses_gmue',{'classe': classe.id}) }}" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> UE</a>
+								  		{% endif %}
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+					<a href="#" class="btn btn-primary pull-right"><i class="fa fa-book"></i>  Ajout en groupe</a>
+ </div>
+    </section><!-- /container -->
+    
+{% endblock %}

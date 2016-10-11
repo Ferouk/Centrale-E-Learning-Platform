@@ -1,0 +1,15 @@
+<nav class="navbar navbar-fixed-top navbar-dark bg-primary">
+	<div class="container">
+	  <a class="navbar-brand" href="{{path('indexpage')}}"><i class="fa fa-graduation-cap"></i>  CEP</a>
+	  <ul class="nav navbar-nav pull-right">
+	    <li class="nav-item {% if app.request.attributes.get('_route') == 'indexpage' %}active{% endif %}">
+	      <a class="nav-link" href="{{path('indexpage')}}"><i class="fa fa-home" aria-hidden="true"></i>  Accueil <span class="sr-only">(current)</span></a>
+	    </li>
+	    <li class="nav-item {% if app.request.attributes.get('_route') == 'security_login' %}active{% endif %}">
+	      <a class="nav-link" href="{{path('security_login')}}"><i class="fa fa-sign-in" aria-hidden="true"></i> Se connecter</a>
+	    </li>
+	  </ul>
+	</div>
+</nav>
+
+<div class="space"></div>

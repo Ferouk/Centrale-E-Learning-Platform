@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% block title %}Profile de {{app.user.name}} {{app.user.surname}}{% endblock %}
+{% block body %}
+    {% include 'navs/user.html.twig' %}
+    <section class="container">
+    <div class="row profile">
+		<div class="col-md-3">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					{% if app.user.picture %}
+						<img src="{{ asset('uploads/pictures/'~ app.user.picture)}}" class="img-responsive img-thumbnail">
+					{% else %}
+						<img src="{{ asset('img/UserImage.png')}}" class="img-responsive img-thumbnail">
+					{% endif %}
+				</div>
+				<br>
+					<h4 class="text-center">
+						{{app.user.name}} {{app.user.surname}}
+					</h4>
+					<p class="text-muted text-center">
+						{% if app.user.type == 4 %}
+								Administrateur
+							{% elseif app.user.type == 1 %}
+								Parent
+						    {% elseif app.user.type == 2 %}
+		    					<i class="fa fa-user" aria-hidden="true"></i>
+								Enseignant <span class="label label-info">{{entity.type | capitalize}}</span>
+						    {% elseif app.user.type == 3 %}
+						    	Personel
+						    {% else %}
+						        <i class="fa fa-graduation-cap" aria-hidden="true"></i> Etudiant
+						{% endif %}
+					<br>
+					<i class="fa fa-calendar" aria-hidden="true"></i>  {{app.user.birthday|date('d F Y')}}
+					<br>
+					<i class="fa fa-location-arrow" aria-hidden="true"></i> {{app.user.city}}, {{app.user.country}}
+					</p>
+					
+				<hr>
+			    {% include 'navs/sidebar.profile.html.twig' %}
+
+				</div>
+		</div>
+		<div class="col-md-9">
+
+		{% if app.user.type == 2 %}
+            <div class="profile-content">
+            {% for course in entity.courses %}
+                <div class="col-md-4">
+					<div class="card text-center">
+					    <img src="{{asset('uploads/thumbnails/'~ course.thumbnail)}}" class="img-responsive center-block" alt="Card image">
+
+					  <div class="card-block">
+					    <h4 class="card-title">{{course.name}}</h4>
+					    <p class="card-description">					    
+					    	<a href="{{path('Teacher_course', {'id' : course.id})}}" class="btn btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i> Modifier la matière</a>
+					    </p>
+					  </div>
+
+					  <div class="card-footer text-muted">
+					    {{course.gmue.classe.slug}}
+					  </div>
+					</div>
+				</div>
+            {% endfor %}
+            </div>
+        {% endif %}
+
+
+
+		</div>
+	</div>
+
+
+    </section><!-- /container -->
+
+
+
+    
+{% endblock %}

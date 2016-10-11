@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.admin.html.twig' %}
+      <div class="col-md-9">
+        <h2> <a href="{{path('admin_courses')}}" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left" aria-hidden="true"></i> Revenir</a> Ajouter {% if classe.cycle == "ING" %}GM {% else %} UE {% endif %} à <strong>{{classe.slug}}</strong></h2>
+        <hr>
+
+        <form action="{{path('admin_courses_gmue',{'classe': classe.id})}}" method="post" class="form">
+        	<fieldset class="form-group">
+        		<label for="slug">Slug</label>
+        		<input type="text" class="form-control" id="slug" name="slug" placeholder=" Nom de {% if classe.cycle == "ING" %}groupe des modules {% else %} l'unité d'étude {% endif %}">
+        	</fieldset>
+        	<fieldset class="form-group">
+        		<label for="number">Numéro</label>
+        		<input type="number" class="form-control" id="number" name="number" value="{{classe.gmues| length + 1 }}" placeholder="Numéro de {% if classe.cycle == "ING" %}groupe des modules {% else %} l'unité d'étude {% endif %}">
+        	</fieldset>
+            <fieldset class="form-group">
+                <label for="nature">Nature</label>
+                <select name="nature" id="nature" class="c-select">
+                    <option value="mixte">Mixte</option>
+                    <option value="cc">CC</option>
+                </select>
+            </fieldset>
+        	<fieldset class="form-group">
+        		<label for="coefficient">Coefficient</label>
+        		<input type="text" class="form-control" id="coefficient" name="coefficient" placeholder="Coefficient">
+        	</fieldset>
+        	<input type="hidden" id="type" name="type" value="{% if classe.cycle == "ING" %}GM{% else %}UE{% endif %}">
+        	<fieldset class="form-group">
+        		<button class="btn btn-success pull-right"><i class="fa fa-plus"></i>  Ajouter</button>
+        	</fieldset>
+        </form>
+      </div>
+    </section><!-- /container -->
+
+
+
+    
+{% endblock %}

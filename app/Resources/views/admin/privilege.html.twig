@@ -1,0 +1,207 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administration{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+        {% include 'navs/sidebar.admin.html.twig' %}
+        <div class="col-md-8">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ path("admin_users") }}">Utilisateurs</a></li>
+                <li class="breadcrumb-item active">Privilèges</li>
+            </ol>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="pull-right">
+                        <a class="btn btn-info btn-sm" data-toggle="collapse" href="#help" aria-expanded="false" aria-controls="help">
+                            <i class="fa fa-question-circle-o" aria-hidden="true"></i> Aide
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <div class="text-muted collapse" id="help">
+                        <div class="card card-block">
+                            <small>
+                                <ul class="list-unstyled">
+                                    <li><strong>Niveau 0</strong> Accès refusé</li>
+                                    <li><strong>Niveau 1</strong> Accès autorisé</li>
+                                    <li><strong>Niveau 2</strong> Accès autorisé avec la permission de modification</li>
+                                    <li><strong>Niveau 3</strong> Accès autorisé avec les permissions modification et suppression</li>
+                                    <li><strong>Niveau 4</strong> Accès autorisé avec les permissions modification, suppression et ajout. </li>
+                                </ul>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <div class="row">
+                <div class="alert alert-success alert-dismissible" style="display:none;" role="alert">
+                    <strong>Succès!</strong> <span class="alert-msg-success"></span>
+                </div>
+                <div class="alert alert-danger alert-dismissible" style="display:none;" role="alert">
+                    <strong>Erreur!</strong> <span class="alert-msg-error"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <form action="" method="post" class="form">
+                        <fieldset class="form-group row">
+                            <label for="name" class="col-md-4  col-form-label">Titre</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" id="name" name="title" placeholder="Titre de privilège">
+                            </div>
+                        </fieldset>
+
+                        <fieldset class="form-group row">
+                            <label for="site" class="col-md-4 col-form-label">Accès site</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="site" name="site">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label for="admin" class="col-md-4 col-form-label">Administration</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="admin" name="admin">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label for="users" class="col-md-4 col-form-label">Utilisateurs</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="users" name="users">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                    <option value="2">Niveau 2</option>
+                                    <option value="3">Niveau 3</option>
+                                    <option value="4">Niveau 4</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label for="department" class="col-md-4 col-form-label">Départements</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="department" name="department">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                    <option value="2">Niveau 2</option>
+                                    <option value="3">Niveau 3</option>
+                                    <option value="4">Niveau 4</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label for="classe" class="col-md-4 col-form-label">Classes</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="classe" name="classe">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                    <option value="2">Niveau 2</option>
+                                    <option value="3">Niveau 3</option>
+                                    <option value="4">Niveau 4</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label for="curriculum" class="col-md-4 col-form-label">Plan d'études</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="curriculum" name="curriculum">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                    <option value="2">Niveau 2</option>
+                                    <option value="3">Niveau 3</option>
+                                    <option value="4">Niveau 4</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label for="result" class="col-md-4 col-form-label">Résultats</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="result" name="result">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                    <option value="2">Niveau 2</option>
+                                    <option value="3">Niveau 3</option>
+                                    <option value="4">Niveau 4</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label for="course" class="col-md-4 col-form-label">Matières</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="course" name="course">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                    <option value="2">Niveau 2</option>
+                                    <option value="3">Niveau 3</option>
+                                    <option value="4">Niveau 4</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label for="posts" class="col-md-4 col-form-label">Actualités</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="posts" name="posts">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                    <option value="2">Niveau 2</option>
+                                    <option value="3">Niveau 3</option>
+                                    <option value="4">Niveau 4</option>
+                                </select>
+                            </div>
+                        </fieldset>
+                        <fieldset class="form-group row">
+                            <label for="config" class="col-md-4 col-form-label">Configuration</label>
+                            <div class="col-md-8">
+                                <select class="form-control" id="config" name="config">
+                                    <option value="0">Niveau 0</option>
+                                    <option value="1">Niveau 1</option>
+                                    <option value="2">Niveau 2</option>
+                                    <option value="3">Niveau 3</option>
+                                    <option value="4">Niveau 4</option>
+                                </select>
+                            </div>
+                        </fieldset>
+
+
+                        <button class="btn btn-success pull-right" type="submit" id="addPrivilege"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter</button>
+                        <div class="loader col-md-2 pull-right" style="display:none;"><img class="img-responsive" src="{{ asset('img/loader.gif') }}" alt=""></div>
+
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Titre</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="privilegesList">
+                        {% if privileges == null %}
+                            <tr><td colspan="2" class="text-muted text-center">Pas de privilèges</td></tr>
+                        {% else %}
+                            {% for privilege in privileges %}
+                                <tr>
+                                    <td>{{ privilege.name }}</td>
+                                    <td></td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section><!-- /container -->
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/ajax.js') }}"></script>
+{% endblock %}

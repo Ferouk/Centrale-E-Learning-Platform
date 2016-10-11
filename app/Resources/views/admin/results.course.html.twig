@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title %}Administrator{% endblock %}
+{% block body %}
+    {% include 'navs/admin.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.admin.html.twig' %}
+      <div class="col-md-9">
+			<h2><i class="fa fa-check-circle-o" aria-hidden="true"></i>  Les résultats <span class="text-muted">></span> {{module.title}} <small class="text-info">({{module.coefficient}})</small> <a href="{{path('admin_group_results', {'id':group.id})}}" class="btn btn-sm btn-primary pull-right"><i class="fa fa-arrow-left" aria-hidden="true"></i> Revenir</a></h2>
+			<hr>
+			<form method="POST" action="{{ path('admin_course_results', {'group':group.id, 'course':module.id}) }}">
+			<table class="table">
+				  <thead class="thead-inverse">
+				    <tr>
+				      <th>Etudiant</th>
+				      {% if module.tp %}<th>TP</th>{% endif %}
+				      <th>{% if module.td %}DS1{% else %} DS {% endif %}</th>
+				      {% if module.td %}<th>DS2</th>{% endif %}
+				      {% if module.type == "mixte" %}<th>Examen</th>{% endif %}
+				      <th>Moy</th>
+				    </tr>
+				  </thead>
+				  <tbody>
+				  	{% for student in group.students %}
+				  		<tr id="student-{{student.id}}">
+				  			<td>{{student.user.name}} {{student.user.surname}}</td>
+				  			<input type="hidden" name="student-{{student.id}}[id]" value="{{student.id}}">
+				  			{% if module.tp %}<td><input type="text" class="form-control tp" name="student-{{student.id}}[tp]" placeholder="--" value="{% for result in results %}{% if result.student == student and result.type == "tp" %}{{result.mark}}{% endif %}{% endfor %}"></td>
+				  			{% endif %}
+				  			<td><input type="text" class="form-control ds1" name="student-{{student.id}}[ds1]" placeholder="--" value="{% for result in results %}{% if result.student == student and result.type == "ds1" %}{{result.mark}}{% endif %}{% endfor %}"></td>
+				  			{% if module.td %}
+				  			<td><input type="text" class="form-control ds2" name="student-{{student.id}}[ds2]" placeholder="--" value="{% for result in results %}{% if result.student == student and result.type == "ds2" %}{{result.mark}}{% endif %}{% endfor %}"></td>
+				  			{% endif %}
+				  			{% if module.type == "mixte" %}
+				  			<td><input type="text" class="form-control exam" name="student-{{student.id}}[exam]" placeholder="--" value="{% for result in results %}{% if result.student == student and result.type == "exam" %}{{result.mark}}{% endif %}{% endfor %}"></td>
+				  			{% endif %}
+				  			<td><span class="moy text-info"></span></td>
+				  		</tr>
+				  	    
+				  	{% endfor %}
+				  </tbody>
+			</table>
+			<a class="btn btn-sm btn-info" id="calc"><i class="fa fa-calculator" aria-hidden="true"></i> Calculer</a>
+		  	<button class="btn btn-success pull-right"><i class="fa fa-check" aria-hidden="true"></i> Soumettre</button>
+			</form>
+			
+ 		</div>
+    </section><!-- /container -->
+    
+{% endblock %}

@@ -1,0 +1,20 @@
+<div class="modal fade" id="deleteUser" tabindex="-1" role="dialog" aria-labelledby="deleteUserLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title"><i class="fa fa-user" aria-hidden="true"></i> Supprimer un utilisateur</h4>
+            </div>
+            <div class="modal-body">
+                <p>Est ce que vous voulez vraiment supprimer l'utilisateur <strong><span class="modal-user-name"></span> <span class="modal-user-surname"></span></strong>?</p>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" value="" id="modal-user-id">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" id="Confirm-delete-user"><i class="fa fa-trash" aria-hidden="true"></i> Confirmer</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{lesson.chapter.course.name}}{% endblock %}
+{% block body %}
+    {% include 'navs/user.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.student.html.twig' %}
+      <div class="col-md-9">
+        <h2><i class="fa fa-book" aria-hidden="true"></i>  Ajout attachement au Lesson {{lesson.title}}</h2><small class="text-muted"> {{lesson.chapter.title}} de {{lesson.chapter.course.name}} - {{lesson.chapter.course.gmue.classe.slug}} par {{lesson.chapter.course.teacher.user.name}} {{lesson.chapter.course.teacher.user.surname}}</small>
+        <hr>
+		<form action="{{path('Teacher_attachment', {'id': lesson.id})}}" method="post" class="form" enctype="multipart/form-data">
+			<fieldset class="form-group">
+				<label for="attachment">Attachement</label>
+			    <small class="text-muted">Fichier (Word, PDF, compressé et/ou video)</small>
+			    <br>
+				<label class="file">
+					  <input type="file" name="attachment" id="attachment" accept="video/mp4,video/x-m4v,video/*,application/pdf,application/msword,application/x-rar-compressed,application/zip">
+					  <span class="file-custom"></span>
+				</label>
+			</fieldset>
+			<fieldset class="form-group">
+				<a href="{{path('Teacher_course', {'id' : lesson.chapter.course.id})}}" class="btn btn-primary"><i class="fa fa-arrow-left"></i> Revenir</a>
+				<button class="btn btn-success pull-right"><i class="fa fa-plus"></i> Ajouter l'attachement</button>
+			</fieldset>
+		</form>
+      </div>
+    </section><!-- /container -->
+
+
+
+    
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{course.name}}{% endblock %}
+{% block body %}
+    {% include 'navs/user.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.student.html.twig' %}
+      <div class="col-md-9">
+      <div class="row">
+      	<div class="col-md-2">
+      		<img src="{{ asset('uploads/thumbnails/'~ course.thumbnail) }}" alt="" class="img-responsive img-thumbnail">
+      	</div>
+      	<div class="col-md-10">       
+      	 <h2>{{course.name}}</h2><small class="text-muted">De {{course.gmue.classe.slug}} par {{course.teacher.user.name}} {{course.teacher.user.surname}}</small>
+		</div>
+      </div>
+      <hr>
+      {% for chapter in course.chapters %}
+      <div class="col-md-offset-1 col-md-11">
+          <h5>Chapitre {{chapter.num}}: {{chapter.title}}</h5>
+          <small class="text-muted">{{chapter.description}}</small>
+          <p>
+            <ol>
+              {% for lesson in chapter.lessons %}
+                  <li><a href="#">{{lesson.title}}</a> <br><small>{{lesson.description}}</small>
+                  <ul class="list-inline">
+                  {% for attachment in lesson.attachments %}
+                      <li> <a href="{{ asset('uploads/documents/'~ attachment.name) }}" class="btn btn-secondary btn-sm"><i class="fa {% if attachment.type == 'pdf' %}fa-file-pdf-o{% elseif attachment.type == 'mp4' or attachment.type == 'm4v' %}fa-file-video-o{% elseif attachment.type == 'rar' or attachment.type == 'zip' %}fa-file-zip-o{% else %}fa-file-word-o{% endif %}" aria-hidden="true"></i>  Attachement</a></li>
+                  {% endfor %}
+                  <br>
+                  <span><a href="{{path('Teacher_attachment', {'id' : lesson.id})}}" class="btn btn-primary btn-sm pull-right"><i class="fa fa-file" aria-hidden="true"></i>  Ajout attachement</a></li>
+                  <li class="clearfix"></span>
+                  </ul>
+                  </li>
+              {% endfor %}
+            </ol>
+          <a href="{{path('Teacher_lesson', {'id': chapter.id})}}" class="btn btn-primary btn-sm pull-right"><i class="fa fa-book" aria-hidden="true"></i> Ajout leçon</a>
+          <span class="clearfix"></span>
+          </p>
+          <hr>
+          </div>
+      {% endfor %}
+      <br>
+      	<a href="{{path('Teacher_chapter', {'id' : course.id})}}" class="btn btn-success btn-sm pull-right"><i class="fa fa-plus" aria-hidden="true"></i> Ajout chapitre</a>
+        <div class="clearfix"></div>
+      </div>
+    </section><!-- /container -->
+
+
+
+    
+{% endblock %}

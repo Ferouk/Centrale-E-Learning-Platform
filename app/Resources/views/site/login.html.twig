@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+  {% include 'navs/visitor.html.twig' %}
+
+<div class="space"></div>
+<div class="space"></div>
+
+  <section class="container">
+    <div class="col-md-offset-1 col-md-6">
+      <img src="https://d13yacurqjgara.cloudfront.net/users/40433/screenshots/2004177/dribbble_1x.png" alt="login" class="img-fluid">
+    </div>
+    <div class="col-md-5">
+    {% if error %}
+      <div class="alert alert-warning alert-dismissible fade in" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Oops!</strong> {{ error.messageKey|trans(error.messageData, 'security') }}
+      </div>
+
+    {% endif %}
+
+      <form action="{{ path("security_check") }}" class="form" method="POST">
+        <legend><i class="fa fa-sign-in" aria-hidden="true"></i> Connexion</legend>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        <fieldset class="form-group">
+          <label for="username">{{ 'security.login.username'|trans }}</label>
+          <input type="text" class="form-control" name="_username" id="username" value="{{ last_username }}" placeholder="{{ 'security.login.username'|trans }}" required>
+        </fieldset>
+        <fieldset class="form-group">
+          <label for="password">{{ 'security.login.password'|trans }}</label>
+          <input type="password" class="form-control" name="_password" id="password" placeholder="{{ 'security.login.password'|trans }}" required>
+        </fieldset>
+        <fieldset class="form-group checkbox">
+          <label for="remember">
+            <input type="checkbox" name="_remember_me" id="remember" value="on"> {{ 'security.login.remember_me'|trans }}
+          </label>
+        </fieldset>
+        <fieldset class="form-group">
+          <button class="btn btn-success pull-right" type="submit" id="submit" name="_submit"><i class="fa fa-unlock" aria-hidden="true"></i>  {{ 'security.login.submit'|trans }}</button>
+        </fieldset>
+      </form>
+    </div>
+  </section><!-- /container -->
+    
+{% endblock %}

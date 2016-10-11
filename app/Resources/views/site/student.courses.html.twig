@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block title %} Matières | {{app.user.name}} {{app.user.surname}}{% endblock %}
+{% block body %}
+    {% include 'navs/user.html.twig' %}
+    <section class="container">
+      {% include 'navs/sidebar.student.html.twig' %}
+      <div class="col-md-9">
+      <h2><i class="fa fa-book" aria-hidden="true"></i>  Les matières de <strong>{{student.groups.classe.slug}}</strong></h2>
+      <hr>
+      {% for gmue in student.groups.classe.gmues %}
+      {% for course in gmue.courses %} 
+      {% if course.chapters.first != null %}       
+       <div class="col-md-4">
+			<div class="card">
+			  <img class="card-img-top" src="{{ asset('uploads/thumbnails/'~ course.thumbnail) }}" alt="Card image cap">
+			  <div class="card-block">
+			    <h4 class="card-title">{{course.name}}</h4>
+			    <p class="card-text"><small class="text-muted">{{course.gmue.classe.slug}}</small></p>
+			    <a href="{{path('StudentSubjectPage', {'id' : course.id})}}" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> Consulter</a>
+			  </div>
+			</div>
+		</div>
+    {% endif %} 
+          {% endfor %}
+
+      {% endfor %}
+
+      </div>
+    </section><!-- /container -->
+
+
+
+    
+{% endblock %}

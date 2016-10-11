@@ -1,0 +1,59 @@
+{% form_theme form 'bootstrap_3_layout.html.twig'  %}
+
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel"><i class="fa fa-user" aria-hidden="true"></i> Ajouter un utilisateur</h4>
+            </div>
+            {{ form_start(form, {'method': 'post', 'attr': {'enctype': 'multipart/form-data','class': 'form'}}) }}
+            <div class="modal-body">
+                <div class="alert alert-success alert-dismissible" style="display:none;" role="alert">
+                    <strong>Succès!</strong> <span class="alert-msg-success"></span>
+                </div>
+                <div class="alert alert-danger alert-dismissible" style="display:none;" role="alert">
+                    <strong>Erreur!</strong> <span class="alert-msg-error"></span>
+                </div>
+                <div class="loader col-md-2 col-md-offset-5" style="display:none;"><img class="img-responsive" src="{{ asset('img/loader.gif') }}" alt=""></div>
+                <div class="clearfix"></div>
+                <div class="theform">
+                    <div class="step1">{{ form_widget(form) }}</div>
+                    <fieldset class="form-group">
+                        <label for="privilege">Privilèges</label>
+                        <select name="privilege" id="privilege" class="form-control">
+                            <option value="">Choisir un privilège</option>
+                            {% for privilege in privileges %}
+                                <option value="{{ privilege.id }}">{{ privilege.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <label for="entype">Type</label>
+                        <select name="entype" id="entype" class="form-control">
+                            <option value="">Choisir un type</option>
+                            <option value="0">Etudiant</option>
+                            <!--<option value="1">Parent</option>-->
+                            <option value="2">Enseignant</option>
+                            <!--<option value="3">Personel</option>-->
+                            <option value="4">Administrateur</option>
+                        </select>
+                    </fieldset>
+
+                    {% include('forms/teacher.html.twig') %}
+                    {% include('forms/student.html.twig') %}
+                    {% include('forms/admin.html.twig') %}
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-success" id="addUser"><i class="fa fa-plus" aria-hidden="true"></i> Ajouter</button>
+                </div>
+                </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<nav class="navbar navbar-fixed-top navbar-dark bg-ex">
+	<div class="container">
+	  <a class="navbar-brand" href="{{path('indexpage')}}"><i class="fa fa-graduation-cap"></i>  CEP</a>
+	  <ul class="nav navbar-nav pull-right">
+	    <li class="nav-item">
+	      <a class="nav-link" href="{{path('indexpage')}}"><i class="fa fa-home" aria-hidden="true"></i>  Accueil <span class="sr-only">(current)</span></a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link  {% if app.request.attributes.get('_route') == 'profilepage' %}active{% endif %}" href="{{path('profilepage')}}"><i class="fa fa-user" aria-hidden="true"></i> {{app.user.name}} {{app.user.surname}}</a>
+	    </li>
+	    <li class="nav-item active">
+	      <a class="nav-link" href="#"><i class="fa fa-bookmark" aria-hidden="true"></i> Administration</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="#"><i class="fa fa-cog" aria-hidden="true"></i> Paramètres</a>
+	    </li>
+	    <li class="nav-item">
+	      <a class="nav-link" href="{{path('security_logout')}}"><i class="fa fa-sign-out" aria-hidden="true"></i> Déconnexion</a>
+	    </li>
+	  </ul>
+	</div>
+</nav>
+
+<div class="space"></div>
+<div class="space"></div>

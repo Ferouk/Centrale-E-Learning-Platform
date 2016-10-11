@@ -1,0 +1,40 @@
+<div class="col-md-3">
+	<nav class="main">
+		<ul class="nav nav-pills nav-stacked">
+			<li>
+				<h3 class="display-6">Administration</h3>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if app.request.attributes.get('_route') == 'admin' %}active{% endif %}"
+				   href="{{ path('admin') }}"><i class="fa fa-home" aria-hidden="true"></i> Accueil</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if app.request.attributes.get('_route') == 'admin_users' %}active{% endif %}"
+				   href="{{ path('admin_users') }}"><i class="fa fa-users" aria-hidden="true"></i> Utilisateurs</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if app.request.attributes.get('_route') == 'admin_department' %}active{% endif %}"
+				   href="{{ path('admin_department') }}"><i class="fa fa-building" aria-hidden="true"></i> Départements</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if app.request.attributes.get('_route') == 'admin_classes' %}active{% endif %}"
+				   href="{{ path('admin_classes') }}"><i class="fa fa-users" aria-hidden="true"></i> Classes</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if app.request.attributes.get('_route') == 'admin_curriculum' %}active{% endif %}" href="{{ path('admin_curriculum') }}"><i class="fa fa-area-chart" aria-hidden="true"></i> Plan d'étude</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if app.request.attributes.get('_route') == 'admin_results' or app.request.attributes.get('_route') == 'admin_group_results' or app.request.attributes.get('_route') == 'admin_course_results' %}active{% endif %}"
+				   href="{{ path('admin_results') }}"><i class="fa fa-check-circle-o" aria-hidden="true"></i> Résultats</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if app.request.attributes.get('_route') == 'admin_actuality' %}active{% endif %}"
+				   href="{{ path('admin_actuality') }}"><i class="fa fa-feed" aria-hidden="true"></i> Actualités</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link {% if app.request.attributes.get('_route') == 'admin_info' %}active{% endif %}"
+				   href="{{ path('admin_info') }}"><i class="fa fa-cog" aria-hidden="true"></i> Configuration</a>
+			</li>
+		</ul>
+	</nav>
+</div>
